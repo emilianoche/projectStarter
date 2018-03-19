@@ -1,9 +1,6 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
-const Dashboard = require('webpack-dashboard');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 const webpack = require('webpack');
-const dashboard = new Dashboard();
 
 const cssLoader = {
   loader: 'css-loader',
@@ -51,6 +48,6 @@ config.module.rules.push(...[{
   ],
 }]);
 
-config.plugins.unshift(new DashboardPlugin(dashboard.setData), new webpack.HotModuleReplacementPlugin());
+config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
 
 module.exports = config;
