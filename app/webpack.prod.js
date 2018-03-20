@@ -63,6 +63,7 @@ common.module.rules.push(...rules);
 common.plugins.unshift(...productionPlugins);
 
 module.exports = merge(common, {
+  mode: 'production', 
   optimization: {
     namedModules: true, // NamedModulesPlugin()
     splitChunks: { // CommonsChunkPlugin()

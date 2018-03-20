@@ -3,27 +3,35 @@
 enviroment=${1:-'none'}
 action=$2
 api=${3:-'none'}
-
+rm .env
+touch .env
+cat ./config/env/.env > .env
 if [ $enviroment = 'dev' ]
   then
     if [ $api = 'api' ]
       then 
         echo 'starting DEVELOPMENT API only:'
-        cp ./config/.envDev ./.env
+        cat ./config/env/.envDev >> ./.env
         docker-compose -f docker-compose-api.yaml $action
     elif [ $api = 'test' ]
       then
         echo 'starting TESTING enviroment:'
-        cp ./config/.envTest ./.env
+        cat ./config/env/.envTest >> ./.env
         docker-compose -f docker-compose-api.yaml $action pg redis api
+    elif [ $api = 'cosmos' ]
+      then
+        echo 'starting COSMOS enviroment:'
+        cat ./config/env/.envCosmos >> ./.env
+        docker-compose -f docker-compose-cosmos.yaml $action app
     else
       echo 'starting DEVELOPMENT:'
+      cat ./config/env/.envDev >> ./.env
       docker-compose -f docker-compose.yaml $action
     fi
 elif [ $enviroment = 'production' ]
   then
     echo 'starting PRODUCTION:'
-    cp ./config/.envProd ./.env
+    cat ./config/env/.envProd >> ./.env
     docker-compose -f docker-compose-prod.yaml $action
 else
     echo 'incorrect enviroment. Choose "production" or "dev"'

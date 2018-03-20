@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --config webpack.dev.js",
-    "build": "webpack --mode production --config webpack.prod.js"
+    "build": "webpack --mode production --config webpack.prod.js",
+    "cosmos": "cosmos",
+    "cosmos:export": "cosmos-export"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +34,7 @@
     "image-webpack-loader": "^4.2.0",
     "optimize-css-assets-webpack-plugin": "^4.0.0",
     "react": "^16.2.0",
+    "react-cosmos": "^4.0.0-beta.0",
     "react-dom": "^16.2.0",
     "style-loader": "^0.20.3",
     "stylus": "^0.54.5",
