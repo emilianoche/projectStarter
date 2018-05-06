@@ -10,3 +10,4 @@ ADD ./app/webpack.common.js webpack.common.js
 ADD ./app/webpack.dev.js webpack.dev.js
 ADD ./app/webpack.prod.js webpack.prod.js
 ADD ./app/cosmos.config.js cosmos.config.js
+ADD ./app/cosmos.proxies.js cosmos.proxies.js

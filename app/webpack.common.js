@@ -23,10 +23,9 @@ module.exports = {
       Reducers: path.resolve(__dirname, 'src/redux/reducers/'),
       Store: path.resolve(__dirname, 'src/redux/store.js'),
       Assets: path.resolve(__dirname, 'src/assets/'),
-      Globals: path.resolve(__dirname, 'src/globals/'),
       Interfaces: path.resolve(__dirname, 'src/interfaces.js'),
     },
-    extensions: ['.jsx', '.js', '.scss'],
+    extensions: ['.jsx', '.js'],
   },
   output: {
     path: PATHS.dist,
@@ -41,12 +40,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
         },
-      }, {
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)$/,
         loader: 'image-webpack-loader',
         // This will apply the loader before the other ones
         enforce: 'pre',
-      }, {
+      },
+      {
         test: /\.(jpe?g|png)$/i,
         loaders: [
           {
@@ -59,14 +60,16 @@ module.exports = {
           // 'webp-loader', // Still not supported by all browsers
         ],
         exclude: /(node_modules|bower_components)/,
-      }, {
+      },
+      {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=1000&mimetype=application/font-woff',
       },
       {
         test: /\.(ttf|eot|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'url-loader?limit=1000&mimetype=application/font-woff',
-      }, {
+      },
+      {
         test: /\.svg$/,
         loader: 'svg-url-loader',
         options: {
@@ -75,18 +78,20 @@ module.exports = {
           // Remove the quotes from the url
           noquotes: true,
         },
-      }],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
-      title: 'NewApp',
+      title: 'ShopApp',
       appMountId: 'app',
       baseHref: '/',
       mobile: true,
       links: [
         'https://fonts.googleapis.com/css?family=Roboto+Condensed:300',
+        'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
         {
           href: 'manifest',
           rel: '/manifest.json',
@@ -100,13 +105,16 @@ module.exports = {
         {
           name: 'description',
           content: 'Add Description.',
-        }, {
+        },
+        {
           name: 'keywords',
           content: 'Add keywords here.',
-        }, {
+        },
+        {
           name: 'theme-color',
           content: '#c50c3f',
         },
       ],
-    })],
+    }),
+  ],
 };

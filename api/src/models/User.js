@@ -1,4 +1,4 @@
-const sequelize = require('db.js')();
+const sequelize = require('./conn.js');
 const crypto = require('crypto');
 const S = require('sequelize');
 

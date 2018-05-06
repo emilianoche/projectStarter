@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_PATH=./src nodemon -L",
     "forever": "NODE_PATH=./src forever index.js",
-    "test": "NODE_PATH=./src mocha -w ./tests/**/*.spec.js"
+    "test": "NODE_PATH=./src mocha -w"
   },
   "engines": {
     "node": "6.11.1"
@@ -19,17 +19,15 @@
     "express": "^4.16.2",
     "forever": "^0.15.3",
     "morgan": "^1.9.0",
-    "pg": "^7.4.1",
+    "pg": "^7.4.2",
     "redis-sessions": "^1.3.0",
-    "sequelize": "^4.35.5"
-  },
-  "devDependencies": {
+    "sequelize": "^4.37.6",
     "chai": "^4.1.2",
-    "eslint": "^4.18.2",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "mocha": "^5.0.4",
-    "nodemon": "^1.17.1",
-    "supertest-session": "^3.1.2"
+    "eslint-plugin-import": "^2.11.0",
+    "mocha": "^5.1.1",
+    "nodemon": "^1.17.4",
+    "supertest-session": "^3.2.0"
   }
 }

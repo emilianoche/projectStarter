@@ -1,2 +1,2 @@
 ENVIROMENT='TEST'
-CMD=npm run test
+

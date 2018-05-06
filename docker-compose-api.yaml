@@ -24,13 +24,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       REDIS_SECRET: ${REDIS_SECRET}
       DOMAIN: ${DOMAIN}
+    tty: true
     volumes:
       - ./api/src:/usr/api/src
       - ./api/tests:/usr/api/tests
-    ports:
-      - "${API_DEV_PORT}:${API_DEV_PORT}"
     command: ${CMD}
-    tty: true
     links:
       - "pg:pg"
       - "redis:redis"

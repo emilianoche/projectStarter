@@ -1,10 +1,5 @@
 import { render } from 'react-dom';
 import React from 'react';
+import MainContainer from 'Containers/MainContainer.jsx';
 
-import Prueba from 'Components/Prueba';
-
-const Root = () => (
-  <Prueba />
-);
-
-render(<Root />, document.getElementById('app'));
+render(<MainContainer />, document.getElementById('app'));

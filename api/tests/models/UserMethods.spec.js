@@ -38,6 +38,17 @@ describe('User model Methods', () => {
     });
   });
   describe('Activation Workflow', () => {
+    before(() =>{
+      sequelize
+        .authenticate()
+        .then(() => {
+          console.log('Connection has been established successfully.');
+        })
+        .catch(err => {
+          console.error('Unable to connect to the database:', err);
+        });
+    });
+    after(() => sequelize.close());
     let user, token;
     const email = 'valid@email.com';
     const pass = 'validPassword';

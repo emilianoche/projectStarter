@@ -27,27 +27,22 @@ const config = merge(common, {
   },
 });
 
-config.module.rules.push(...[{
-  test: /\.css$/,
-  use: [
-    'style-loader',
-    'css-loader',
+config.module.rules.push(
+  ...[
+    {
+      test: /\.css$/,
+      use: ['style-loader', 'css-loader'],
+    },
+    {
+      test: /\.styl$/,
+      use: ['style-loader', cssLoader, 'stylus-loader'],
+    },
+    {
+      test: /\.scss$/,
+      use: ['style-loader', cssLoader, 'sass-loader'],
+    },
   ],
-}, {
-  test: /\.styl$/,
-  use: [
-    'style-loader',
-    cssLoader,
-    'stylus-loader',
-  ],
-}, {
-  test: /\.scss$/,
-  use: [
-    'style-loader',
-    cssLoader,
-    'sass-loader',
-  ],
-}]);
+);
 
 config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
 

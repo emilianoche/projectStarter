@@ -3,6 +3,7 @@
 enviroment=${1:-'none'}
 action=$2
 api=${3:-'none'}
+testName=${4:-'none'}
 rm .env
 touch .env
 cat ./config/env/.env > .env
@@ -17,6 +18,13 @@ if [ $enviroment = 'dev' ]
       then
         echo 'starting TESTING enviroment:'
         cat ./config/env/.envTest >> ./.env
+        if [ $testName != 'none' ]
+          then
+            echo $testName
+            echo CMD=npm run test ./tests/**/$testName.spec.js >>  ./.env
+          else
+            echo 'CMD=npm run test ./tests/**/*.spec.js' >>  ./.env
+        fi
         docker-compose -f docker-compose-api.yaml $action pg redis api
     elif [ $api = 'cosmos' ]
       then

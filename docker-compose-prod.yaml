@@ -31,8 +31,6 @@ services:
       context: .
       dockerfile: ./config/app/Dockerfile
     command: npm run build
-    stdin_open: true
-    tty: true
     environment:
       DOMAIN: ${DOMAIN}
     volumes:
