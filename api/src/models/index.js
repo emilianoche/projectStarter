@@ -1,6 +1,9 @@
 // Import all Models
+const db = require('./conn.js');
 const User = require('./User.js');
 
-// Add Models relations here
-
-module.exports = { User };
+const setup = db.sync({ force: true })
+  .then(() => {
+    // Add Models relations here
+  });
+module.exports = { setup, User };

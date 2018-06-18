@@ -21,11 +21,10 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 const server = require('./src/app.js');
-const db = require('./src/db.js')();
-
+const { setup } = require('./src/models/index.js')
 const port = process.env.API_PORT || 3000;
 // Syncing all the models at once.
-db.sync({ force: false }).then(() => {
+setup.then(() => {
   server.listen(port, () => {
     console.log('%s listening at %s', server.name, server.url); // eslint-disable-line no-console
   });
