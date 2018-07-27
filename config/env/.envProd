@@ -1,2 +1,3 @@
 ENVIROMENT='PRODUCTION'
 CMD=npm start
+POSTGRES_DB=production

@@ -21,10 +21,13 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 const server = require('./src/app.js');
-const { setup } = require('./src/models/index.js')
+const { conn } = require('./src/models/index.js')
 const port = process.env.API_PORT || 3000;
+const env = process.env.POSTGRES_DB;
+const force = env === 'production' ? false : true;
+
 // Syncing all the models at once.
-setup.then(() => {
+conn.sync({ force }).then(() => {
   server.listen(port, () => {
     console.log('%s listening at %s', server.name, server.url); // eslint-disable-line no-console
   });

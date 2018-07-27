@@ -1,2 +1,3 @@
 ENVIROMENT='TEST'
+POSTGRES_DB=testing
 

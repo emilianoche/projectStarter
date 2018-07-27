@@ -6,11 +6,11 @@ api=${3:-'none'}
 testName=${4:-'none'}
 rm .env
 touch .env
-cat ./config/env/.env > .env
+cat ./config/env/.envBase > .env
 if [ $enviroment = 'dev' ]
   then
     if [ $api = 'api' ]
-      then 
+      then
         echo 'starting DEVELOPMENT API only:'
         cat ./config/env/.envDev >> ./.env
         docker-compose -f docker-compose-api.yaml $action

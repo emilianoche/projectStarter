@@ -1,6 +1,6 @@
 const { ok, error, badRequest } = require('utils/').responses;
 const { expose } = require('utils/').scopes.user;
-const User = require('models/User');
+const { User } = require('models/index.js');
 const auth = require('controllers/auth');
 const server = require('express').Router();
 

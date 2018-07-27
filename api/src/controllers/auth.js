@@ -1,4 +1,4 @@
-const User = require('models/User');
+const { User } = require('models/index.js');
 const RedisSessions = require('redis-sessions');
 const { forbidden, unauthorized } = require('utils/').responses;
 
