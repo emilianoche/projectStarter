@@ -5,7 +5,7 @@ function createSalt() {
 }
 
 const User = (sequelize, S) => {
-  const User = sequelize.define('users', {
+  const U = sequelize.define('users', {
     id: {
       type: S.INTEGER,
       allowNull: false,
@@ -56,15 +56,15 @@ const User = (sequelize, S) => {
     },
   });
 
-  User.prototype.encryptPassword = function encryptPassword(plain) {
+  U.prototype.encryptPassword = function encryptPassword(plain) {
     return crypto.createHmac('sha1', this.passwordsalt).update(plain).digest('hex');
   };
-  User.prototype.isTokenOutdated = function isTokenOutdated() {
+  U.prototype.isTokenOutdated = function isTokenOutdated() {
     const currentDate = new Date();
     const tokenAge = (currentDate - this.tokenCreatedAt) / 1000;
     return tokenAge > 604800; // one week
   };
-  User.prototype.createToken = function createToken() {
+  U.prototype.createToken = function createToken() {
     if (!this.token || this.isTokenOutdated()) {
       this.token = createSalt();
       return this.save();
@@ -72,17 +72,16 @@ const User = (sequelize, S) => {
     return this.token;
   };
 
-
-  User.prototype.activate = function activate(password, token) {
+  U.prototype.activate = function activate(password, token) {
     if (this.token !== token || !password || !token) return Promise.reject(new Error('invalid Token.'));
     this.password = password;
     return this.save();
   };
 
-  User.authenticate = function authenticate(email, password) {
+  U.authenticate = function authenticate(email, password) {
     return new Promise((resolve) => {
       if (!password) return resolve(false);
-      return User.findOne({
+      return U.findOne({
         where: {
           email,
         },
@@ -97,11 +96,12 @@ const User = (sequelize, S) => {
     });
   };
 
-  User.activateUser = function activateUser(email, token, password) {
-    return this.findOne({ where: { email } }).then(foundUser => foundUser.activate(password, token));
+  U.activateUser = function activateUser(email, token, password) {
+    return this.findOne({ where: { email } })
+      .then(foundUser => foundUser.activate(password, token));
   };
-  User.forgotPassword = function forgotPassword(email) {
-    return User.findOne({
+  U.forgotPassword = function forgotPassword(email) {
+    return U.findOne({
       where: {
         email,
       },
@@ -112,7 +112,7 @@ const User = (sequelize, S) => {
       throw new Error('No user found');
     });
   };
-  User.changePassword = function changePassword(email, oldPassword, newPassoword) {
+  U.changePassword = function changePassword(email, oldPassword, newPassoword) {
     return new Promise((resolve, reject) => {
       if (!oldPassword || !newPassoword || !email) {
         reject(new Error({
@@ -120,7 +120,7 @@ const User = (sequelize, S) => {
           message: 'Password and/or mail can not be empty.',
         }));
       }
-      return User.findOne({
+      return U.findOne({
         where: {
           email,
         },
@@ -139,7 +139,7 @@ const User = (sequelize, S) => {
       });
     });
   };
-  return User;
+  return U;
 };
 
 module.exports = User;

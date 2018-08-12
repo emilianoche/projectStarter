@@ -4,17 +4,31 @@
 
 ## Dependencies
 
+- node
 - npm
 - Docker
 - Docker-Compose
+
+> if you are in any debian based distro you could just install docker and docker-compose with `apt-get install docker.io docker-compose`
 
 ## Starting a project
 
 Clone this repo.
 
-Run `npm install`, in both __/api__ and __/app__. This will install dependencies such as `eslinter`, etc.. for correct development.
+Run `npm install`, in the base directory. This will install dependencies such as `eslinter`, etc.. for correct development.
 
-Use `./start.sh`.
+## Available commands.
+
+- `npm start`: starts the server in **development** mode.
+- `npm test`: runs all tests, if you pass the name of a file it will run just those tests.
+- `npm run lint`: lint the entire code.
+- `npm run cosmos`: starts **cosmos** dev enviroment.
+- `npm run build`: **you need to rebuild the docker-container everytime you install a new dependency**.
+- `npm run production`: **WIP**, use it on your won risk.
+
+> All scripts calls the *start.sh* script, you can use it by yourself too.
+
+## Start.sh
 
 This script will let you start different enviroments:
 

@@ -21,10 +21,11 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 const server = require('./src/app.js');
-const { conn } = require('./src/models/index.js')
+const { conn } = require('./src/models/index.js');
+
 const port = process.env.API_PORT || 3000;
 const env = process.env.POSTGRES_DB;
-const force = env === 'production' ? false : true;
+const force = (env === 'production');
 
 // Syncing all the models at once.
 conn.sync({ force }).then(() => {

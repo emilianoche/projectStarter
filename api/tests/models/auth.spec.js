@@ -3,16 +3,13 @@ const { expect } = require('chai');
 const sequelize = require('db.js')();
 
 describe('User model', () => {
-  before(() =>{
-    sequelize
-      .authenticate()
-      .then(() => {
-        console.log('Connection has been established successfully.');
-      })
-      .catch(err => {
-        console.error('Unable to connect to the database:', err);
-      });
-  });
+  before(() => sequelize.authenticate()
+    .then(() => {
+      console.log('Connection has been established successfully.');
+    })
+    .catch((err) => {
+      console.error('Unable to connect to the database:', err);
+    }));
   after(() => sequelize.close());
   describe('Validators', () => {
     beforeEach(() => User.sync({ force: true }));
@@ -60,11 +57,10 @@ describe('User model', () => {
           .then(() => done(new Error('It needs to be larger than 4')))
           .catch(() => done());
       });
-      it('should work when the password is a string larger than 4', () =>
-        User.create({
-          email: 'valid@email.com',
-          password: 'validPassword',
-        }));
+      it('should work when the password is a string larger than 4', () => User.create({
+        email: 'valid@email.com',
+        password: 'validPassword',
+      }));
     });
     describe('state', () => {
       beforeEach(() => User.sync({ force: true }));
@@ -87,24 +83,21 @@ describe('User model', () => {
           })
           .catch(done);
       });
-      it('should accept `pending`', () =>
-        User.create({
-          email: 'valid@email.com',
-          password: 'validPassword',
-          state: 'pending',
-        }));
-      it('should accept `disabled`', () =>
-        User.create({
-          email: 'valid@email.com',
-          password: 'validPassword',
-          state: 'disabled',
-        }));
-      it('should accept `active`', () =>
-        User.create({
-          email: 'valid@email.com',
-          password: 'validPassword',
-          state: 'active',
-        }));
+      it('should accept `pending`', () => User.create({
+        email: 'valid@email.com',
+        password: 'validPassword',
+        state: 'pending',
+      }));
+      it('should accept `disabled`', () => User.create({
+        email: 'valid@email.com',
+        password: 'validPassword',
+        state: 'disabled',
+      }));
+      it('should accept `active`', () => User.create({
+        email: 'valid@email.com',
+        password: 'validPassword',
+        state: 'active',
+      }));
     });
   });
   describe('Default fields', () => {
@@ -121,19 +114,16 @@ describe('User model', () => {
           expect(user.dataValues.accessLevel).to.be.equal(0);
         });
     });
-    it('should not have a token when creating with password', () =>
-      User.create({ email: 'valid@email.com', password: 'todobien' })
-        .then((user) => {
-          expect(user.dataValues.token).to.be.a('null');
-        }));
-    it('should have state `active` when  creating with password', () =>
-      User.create({ email: 'valid@email.com', password: 'todobien' })
-        .then((user) => {
-          expect(user.dataValues.state).to.be.equal('active');
-        }));
+    it('should not have a token when creating with password', () => User.create({ email: 'valid@email.com', password: 'todobien' })
+      .then((user) => {
+        expect(user.dataValues.token).to.be.a('null');
+      }));
+    it('should have state `active` when  creating with password', () => User.create({ email: 'valid@email.com', password: 'todobien' })
+      .then((user) => {
+        expect(user.dataValues.state).to.be.equal('active');
+      }));
   });
   describe('Activation Workflow', () => {
-    let user;
     let token;
     const email = 'valid@email.com';
     const pass = 'validPassword';
@@ -141,55 +131,35 @@ describe('User model', () => {
     beforeEach(() => User.sync({ force: true }));
     beforeEach(() => User.create({ email })
       .then((u) => {
-        user = u;
-        token = u.dataValues.token;
+        ({ token } = u.dataValues);
       }));
-    it('should activate an User with a valid password', () =>
-      User.activateUser(email, token, pass)
-        .then((u) => {
-          expect(u.dataValues.state).to.be.equal('active');
-        }));
+    it('should activate an User with a valid password', () => User.activateUser(email, token, pass)
+      .then((u) => {
+        expect(u.dataValues.state).to.be.equal('active');
+      }));
     it('should not activate an User with an invalid token', (done) => {
       User.activateUser(email, 'badtoken', pass)
-        .then((u) => {
-          done('should not activate with bad token');
-        }).catch(() => done());
+        .then(() => done('should not activate with bad token'))
+        .catch(() => done());
     });
   });
   describe('Authentication  Workflow', () => {
-    let user;
-    let token;
     const email = 'valid@email.com';
     const pass = 'validPassword';
 
     beforeEach(() => User.sync({ force: true }));
-    beforeEach(() => {
-      return User.create({ email, password: pass })
-    });
-    it('should login with valid credentials', () =>
-      User.authenticate(email, pass)
-        .then((u) => {
-          expect(u.dataValues.email).to.be.equal(email);
-        }));
-    it('should  not login with invalid password', () =>
-      User.authenticate(email, 'badpass')
-        .then((result) => {
-          expect(result).to.be.false;
-        }));
-    it('should  not login with invalid email', () =>
-      User.authenticate('email@not.com', pass)
-        .then((result) => {
-          expect(result).to.be.false;
-        }));
-    it('should  not login without password', () =>
-      User.authenticate(email)
-        .then((result) => {
-          expect(result).to.be.false;
-        }));
-    it('should  not login without email', () =>
-      User.authenticate()
-        .then((result) => {
-          expect(result).to.be.false;
-        }));
+    beforeEach(() => User.create({ email, password: pass }));
+    it('should login with valid credentials', () => User.authenticate(email, pass)
+      .then((u) => {
+        expect(u.dataValues.email).to.be.equal(email);
+      }));
+    it('should  not login with invalid password', () => User.authenticate(email, 'badpass')
+      .then(result => expect(result).to.be.false));
+    it('should  not login with invalid email', () => User.authenticate('email@not.com', pass)
+      .then(result => expect(result).to.be.false));
+    it('should  not login without password', () => User.authenticate(email)
+      .then(result => expect(result).to.be.false));
+    it('should  not login without email', () => User.authenticate()
+      .then(result => expect(result).to.be.false));
   });
 });

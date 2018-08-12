@@ -55,6 +55,6 @@ server.get('/users', (req, res) => {
   User.findAll()
     .then(users => res.send(ok(users)))
     .catch(users => res.send(error(users)));
-})
+});
 
 module.exports = server;

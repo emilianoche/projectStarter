@@ -54,7 +54,6 @@ function validateCookie(req, res, next) {
   });
 }
 
-
 // Logout
 function logout(req, res) {
   // invalidate the token

@@ -21,7 +21,7 @@ user.expose.info = expose([...userKeys.expose, ...userKeys.info]);
 
 exports.user = user;
 
-// Content info 
+// Content info
 const content = {};
 const contentKeys = {
   expose: [

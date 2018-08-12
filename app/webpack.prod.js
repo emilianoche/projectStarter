@@ -1,12 +1,11 @@
-const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const cssnano = require('cssnano');
-const common = require('./webpack.common.js');
 const createMinifier = require('css-loader-minify-class');
+const common = require('./webpack.common.js');
 
 const PATHS = {
   src: path.resolve(__dirname, './src'),
@@ -63,7 +62,7 @@ common.module.rules.push(...rules);
 common.plugins.unshift(...productionPlugins);
 
 module.exports = merge(common, {
-  mode: 'production', 
+  mode: 'production',
   optimization: {
     namedModules: true, // NamedModulesPlugin()
     splitChunks: { // CommonsChunkPlugin()

@@ -6,22 +6,22 @@
     "es6": true,
     "jest": true
   },
-  "extends": ["airbnb"],
-  "plugins": ["react"],
-  "settings" : {
+  "settings": {
     "import/resolver": {
       "webpack": {
-        "config": "webpack.common.js"
+        "config": "./webpack.common.js"
       }
     }
   },
+  "extends": ["airbnb"],
+  "plugins": ["react"],
   "rules": {
     "react/prop-types": 0,
     "max-len": 0,
     "no-unused-vars": 1,
     "no-return-assign": 0,
     "no-confusing-arrow": 0,
-    "import/extensions": "ignorePackages",
+    "import/extensions": 0,
     "import/no-extraneous-dependencies": [
       "error",
       {

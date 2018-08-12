@@ -11,7 +11,6 @@ const credentials = {
   password: 'validPassword',
 };
 
-let user;
 
 describe('AUTH routes probe', () => {
   it('responds with 200', () => agent.get('/auth/test').expect(200));
@@ -19,21 +18,16 @@ describe('AUTH routes probe', () => {
 
 describe('AUTH routes', () => {
   after(() => sequelize.close());
-  beforeEach(() =>
-    User.sync({ force: true })
-      .then(() => User.create(credentials))
-      .then((newUser) => {
-        user = newUser;
-        return agent.post('/auth/login').send(credentials);
-      }));
+  beforeEach(() => User.sync({ force: true })
+    .then(() => User.create(credentials))
+    .then(() => agent.post('/auth/login').send(credentials)));
   describe('GET /auth/me', () => {
     it('responds with 200', () => agent.get('/auth/me').expect(200));
-    it('responds the user who is logged in', () =>
-      agent.get('/auth/me').expect((res) => {
-        expect(res.body.status).to.be.equal(200);
-        expect(res.body.data).to.be.an('object');
-        const { id } = res.body.data;
-        expect(id).to.be.equal(1);
-      }));
+    it('responds the user who is logged in', () => agent.get('/auth/me').expect((res) => {
+      expect(res.body.status).to.be.equal(200);
+      expect(res.body.data).to.be.an('object');
+      const { id } = res.body.data;
+      expect(id).to.be.equal(1);
+    }));
   });
 });

@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+const template = require('html-webpack-template');
 
 const PATHS = {
   src: path.resolve(__dirname, './src'),
@@ -84,7 +84,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       inject: false,
-      template: require('html-webpack-template'),
+      template,
       title: 'ShopApp',
       appMountId: 'app',
       baseHref: '/',

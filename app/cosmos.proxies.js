@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 /* If you need to decorate everyComponent with a Wrapper
  * you can use this decorator: NextProxy will become the component
